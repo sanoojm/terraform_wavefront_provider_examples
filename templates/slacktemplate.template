@@ -1,0 +1,183 @@
+{{! https://docs.wavefront.com/webhooks_alert_notification.html }}
+{{#setDefaultIterationLimit}}500{{/setDefaultIterationLimit}}
+{{#setFailingLimit}}500{{/setFailingLimit}}
+{{#setInMaintenanceLimit}}500{{/setInMaintenanceLimit}}
+{{#setNewlyFailingLimit}}500{{/setNewlyFailingLimit}}
+{{#setRecoveredLimit}}500{{/setRecoveredLimit}}
+{
+  "attachments": [
+    {{#imageLinks}}
+    {
+      "fallback": "Alert Image",
+      "text": "Use Alert Image Link if image does not show",
+      "title": "Alert Image Link",
+      "title_link": "{{{.}}}",
+      "fields": [
+        {
+          "title": "Alert Condition",
+          "value": "{{#jsonEscape}}{{{condition}}}{{/jsonEscape}}",
+          "short": false
+        },
+        {
+          "title": "Severity",
+          "value": "{{#jsonEscape}}{{{severity}}}{{/jsonEscape}}",
+          "short": true
+        },
+      ],
+      "image_url": "{{{.}}}"
+    },{{/imageLinks}}
+    {
+      "fallback": "{{#jsonEscape}}{{{subject}}} {{{reason}}} [{{{severity}}}] {{{name}}}{{/jsonEscape}}",
+      "pretext": "{{#jsonEscape}}{{{subject}}} {{{reason}}} [{{{severity}}}] {{{name}}}{{/jsonEscape}}",
+      "text": "{{#jsonEscape}}{{{subject}}} {{{reason}}} [{{{severity}}}] {{{name}}}{{/jsonEscape}}\nFailed Sources: \n{{#jsonEscape}}{{{hostsFailingMessage}}}{{/jsonEscape}}\nMessage: \n{{#jsonEscape}}{{{errorMessage}}}{{/jsonEscape}}",
+      "mrkdwn_in": [
+        "text",
+        "pretext",
+        "fields"
+      ],
+      "fields": [
+        {
+          "title": "Get Iteration Limit",
+          "value": "defaultIterationLimit: {{{defaultIterationLimit}}}, failingLimit: {{{failingLimit}}}, inMaintenanceLimit: {{{inMaintenanceLimit}}}, newlyFailingLimit: {{{newlyFailingLimit}}}, recoveredLimit: {{{recoveredLimit}}}",
+          "short": false
+        },
+        {
+          "title": "Get Iteration Limit Exceed",
+          "value": "failingLimitExceed: {{{failingLimitExceed}}}, inMaintenanceLimitExceed: {{{inMaintenanceLimitExceed}}}, newlyFailingLimitExceed: {{{newlyFailingLimitExceed}}}, recoveredLimitExceed: {{{recoveredLimitExceed}}}",
+          "short": false
+        },
+        {
+          "title": "Notification ID",
+          "value": "{{#jsonEscape}}{{{notificationId}}}{{/jsonEscape}}",
+          "short": false
+        },
+        {
+          "title": "Image Links",
+          "value": "{{#jsonEscape}}{{{imageLinks}}}{{/jsonEscape}}",
+          "short": false
+        },
+        {
+          "title": "Reason",
+          "value": "{{#jsonEscape}}{{{reason}}}{{/jsonEscape}}",
+          "short": true
+        },
+        {
+          "title": "Alert ID",
+          "value": "{{#jsonEscape}}{{{alertId}}}{{/jsonEscape}}",
+          "short": true
+        },
+        {
+          "title": "Alert Tags",
+          "value": "{{#jsonEscape}}{{#alertTags}}{{{.}}},{{/alertTags}}{{/jsonEscape}}",
+          "short": true
+        },
+        {
+          "title": "Severity",
+          "value": "{{#jsonEscape}}{{{severity}}}{{/jsonEscape}}",
+          "short": true
+        },
+        {
+          "title": "Condition",
+          "value": "{{#jsonEscape}}{{{condition}}}{{/jsonEscape}}",
+          "short": true
+        },
+        {
+          "title": "URL",
+          "value": "<{{{url}}}>",
+          "short": true
+        },
+        {
+          "title": "Created Time",
+          "value": "{{#jsonEscape}}{{{createdTime}}}{{/jsonEscape}}",
+          "short": true
+        },
+        {
+          "title": "Started Time",
+          "value": "{{#jsonEscape}}{{{startedTime}}}{{/jsonEscape}}",
+          "short": true
+        },
+        {
+          "title": "Since Time",
+          "value": "{{#jsonEscape}}{{{sinceTime}}}{{/jsonEscape}}",
+          "short": true
+        },
+        {
+          "title": "Ended Time",
+          "value": "{{#jsonEscape}}{{{endedTime}}}{{/jsonEscape}}",
+          "short": true
+        },
+        {
+          "title": "Snoozed Until Time",
+          "value": "{{#jsonEscape}}{{{snoozedUntilTime}}}{{/jsonEscape}}",
+          "short": true
+        },
+        {
+          "title": "Additional Information",
+          "value": "{{#jsonEscape}}{{{additionalInformation}}}{{/jsonEscape}}",
+          "short": false
+        },
+        {
+          "title": "Failing Sources",
+          "value": "{{#jsonEscape}}{{#failingHosts}}{{{.}}},{{/failingHosts}}{{/jsonEscape}}",
+          "short": false
+        },
+        {
+          "title": "In Maintenance Sources",
+          "value": "{{#jsonEscape}}{{#inMaintenanceHosts}}{{{.}}},{{/inMaintenanceHosts}}{{/jsonEscape}}",
+          "short": false
+        },
+        {
+          "title": "Newly Failing Sources",
+          "value": "{{#jsonEscape}}{{#newlyFailingHosts}}{{{.}}},{{/newlyFailingHosts}}{{/jsonEscape}}",
+          "short": false
+        },
+        {
+          "title": "Recovered Sources",
+          "value": "{{#jsonEscape}}{{#recoveredHosts}}{{{.}}},{{/recoveredHosts}}{{/jsonEscape}}",
+          "short": false
+        },
+        {
+          "title": "Failing Series",
+          "value": "{{#jsonEscape}}{{#failingSeries}}{{{.}}},{{/failingSeries}}{{/jsonEscape}}",
+          "short": false
+        },
+        {
+          "title": "In Maintenance Series",
+          "value": "{{#jsonEscape}}{{#inMaintenanceSeries}}{{{.}}},{{/inMaintenanceSeries}}{{/jsonEscape}}",
+          "short": false
+        },
+        {
+          "title": "Newly Failing Series",
+          "value": "{{#jsonEscape}}{{#newlyFailingSeries}}{{{.}}},{{/newlyFailingSeries}}{{/jsonEscape}}",
+          "short": false
+        },
+        {
+          "title": "Recovered Series",
+          "value": "{{#jsonEscape}}{{#recoveredSeries}}{{{.}}},{{/recoveredSeries}}{{/jsonEscape}}",
+          "short": false
+        },
+        {
+          "title": "Failing Alert Series",
+          "value": "{{#failingAlertSeries}}(Host: {{host}}, Label: {{label}}, Tags: {{tags}}, Observed: {{observed}} Firing: {{firing}}, First: {{stats.first}}, Last: {{stats.last}}, Min: {{stats.min}}, Max: {{stats.max}}, Mean: {{stats.mean}}), {{/failingAlertSeries}}",
+          "short": false
+        },
+        {
+          "title": "In Maintenance Alert Series",
+          "value": "{{#inMaintenanceAlertSeries}}(Host: {{host}}, Label: {{label}}, Tags: {{tags}}, Observed: {{observed}} Firing: {{firing}}, First: {{stats.first}}, Last: {{stats.last}}, Min: {{stats.min}}, Max: {{stats.max}}, Mean: {{stats.mean}}), {{/inMaintenanceAlertSeries}}",
+          "short": false
+        },
+        {
+          "title": "Newly Failing Alert Series",
+          "value": "{{#newlyFailingAlertSeries}}(Host: {{host}}, Label: {{label}}, Tags: {{tags}}, Observed: {{observed}} Firing: {{firing}}, First: {{stats.first}}, Last: {{stats.last}}, Min: {{stats.min}}, Max: {{stats.max}}, Mean: {{stats.mean}}), {{/newlyFailingAlertSeries}}",
+          "short": false
+        },
+        {
+          "title": "Recovered Alert Series",
+          "value": "{{#recoveredAlertSeries}}(Host: {{host}}, Label: {{label}}, Tags: {{tags}}, Observed: {{observed}} Firing: {{firing}}, First: {{stats.first}}, Last: {{stats.last}}, Min: {{stats.min}}, Max: {{stats.max}}, Mean: {{stats.mean}}), {{/recoveredAlertSeries}}",
+          "short": false
+        }
+      ]
+    }
+  ]
+}
+
