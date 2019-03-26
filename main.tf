@@ -4,6 +4,8 @@ provider "wavefront" {
 }
 module "alert" {
  source = "modules/alert"
+ email_target = "${module.alert_target.email_target}"
+ slack_target = "${module.alert_target.slack_target}"
 }
 module "alert_target" {
  source = "modules/alert_target"
